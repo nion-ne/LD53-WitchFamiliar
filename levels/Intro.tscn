@@ -1,0 +1,89 @@
+[gd_scene load_steps=7 format=2]
+
+[ext_resource path="res://font.tres" type="DynamicFont" id=1]
+[ext_resource path="res://entitysheet.png" type="Texture" id=2]
+[ext_resource path="res://levels/Intro.gd" type="Script" id=3]
+[ext_resource path="res://entities/Player.tscn" type="PackedScene" id=4]
+
+[sub_resource type="Animation" id=2]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0 ),
+"transitions": PoolRealArray( 1 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ) ]
+}
+
+[sub_resource type="Animation" id=3]
+resource_name = "fade"
+length = 2.0
+loop = true
+tracks/0/type = "value"
+tracks/0/path = NodePath(".:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = false
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/keys = {
+"times": PoolRealArray( 0, 1, 2 ),
+"transitions": PoolRealArray( 0.5, 1, 2 ),
+"update": 0,
+"values": [ Color( 1, 1, 1, 0 ), Color( 1, 1, 1, 1 ), Color( 1, 1, 1, 0 ) ]
+}
+
+[node name="Intro" type="Node2D"]
+script = ExtResource( 3 )
+
+[node name="ColorRect" type="ColorRect" parent="."]
+margin_right = 320.0
+margin_bottom = 184.0
+color = Color( 0.0392157, 0.0509804, 0.0627451, 1 )
+
+[node name="Label" type="Label" parent="."]
+margin_left = 16.0
+margin_top = 16.0
+margin_right = 312.0
+margin_bottom = 189.0
+custom_fonts/font = ExtResource( 1 )
+text = "Dearest Sister,
+
+I hope this letter finds you promptly. I have entrusted my new familiar with its delivery.
+So sorry to hear you are unwell, enclosed are some herbs and potions. Get plenty of rest.
+
+Please take care,
+Yours, Luna."
+autowrap = true
+
+[node name="Label2" type="Label" parent="."]
+modulate = Color( 1, 1, 1, 0 )
+margin_left = 120.0
+margin_top = 160.0
+margin_right = 208.0
+margin_bottom = 184.0
+custom_fonts/font = ExtResource( 1 )
+text = "Press Z to begin..."
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="."]
+root_node = NodePath("../Label2")
+autoplay = "RESET"
+anims/RESET = SubResource( 2 )
+anims/fade = SubResource( 3 )
+
+[node name="Sprite" type="Sprite" parent="."]
+position = Vector2( 264, 136 )
+texture = ExtResource( 2 )
+region_enabled = true
+region_rect = Rect2( 82, 185, 79, 69 )
+
+[node name="Player" parent="." instance=ExtResource( 4 )]
+position = Vector2( 1912, 632 )
+
+[node name="Camera2D" type="Camera2D" parent="."]
+position = Vector2( 160, 90 )
+current = true
